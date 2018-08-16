@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_pk"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/home"
+        android:icon="@mipmap/home" />
+    <item android:id="@+id/menu_home"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/hierarchy"
+        android:icon="@mipmap/hierarchy" />
+    <item android:id="@+id/menu_mine"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="@string/navigation"
+        android:icon="@mipmap/navigation" />
+</menu>

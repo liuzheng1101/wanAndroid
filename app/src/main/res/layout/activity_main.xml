@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="myviewpagerAdapter"
+            type="com.example.acer.wanandroid.Adapter.MyViewpagerAdapter" />
+
+        <variable
+            name="picassoImageLoader"
+            type="com.example.acer.wanandroid.PicassoImageLoader" />
+
+        <variable
+            name="bannerBean"
+            type="com.example.acer.wanandroid.bean.BannerBean"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/layout_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+
+        <android.support.design.widget.BottomNavigationView
+            app:itemIconTint="@color/selector_bottom_color"
+            app:itemTextColor="#f00"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/nav_bottom_item">
+
+        </android.support.design.widget.BottomNavigationView>
+
+
+        <!--<com.youth.banner.Banner-->
+            <!--app:title_height="@dimen/dp_10"-->
+            <!--app:title_textcolor="@color/bannerTitleColor"-->
+            <!--android:id="@+id/banner"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp" />-->
+    </RelativeLayout>
+
+</layout>
