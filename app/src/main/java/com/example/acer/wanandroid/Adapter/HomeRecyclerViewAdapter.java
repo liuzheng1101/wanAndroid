@@ -18,12 +18,7 @@ import java.util.List;
 
 /**
  * @author lz
-<<<<<<< HEAD
- *test03
  * test04
-=======
- *test02
->>>>>>> parent of 4cb0f4f... test03
  */
 public class HomeRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
 
