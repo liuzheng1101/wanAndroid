@@ -1,11 +1,13 @@
 package com.example.acer.wanandroid.ui;
 
-import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +35,10 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding fragmentHomeBinding;
     private HomeRecyclerViewAdapter adapter;
     private Context context;
-    private int page;
+    private static int page;
+    private MainActivity mainActivity;
+    private View rootView;
+    private LinearLayoutManager manager;
 
     @Nullable
     @Override
@@ -41,8 +46,49 @@ public class HomeFragment extends Fragment {
 
         fragmentHomeBinding = DataBindingUtil.inflate(inflater
                 , R.layout.fragment_home, container, false);
-        View rootView = fragmentHomeBinding.getRoot();
+        rootView = fragmentHomeBinding.getRoot();
+        mainActivity = (MainActivity) getActivity();
+        context = mainActivity.getApplicationContext();
+
         init();
+        return rootView;
+    }
+
+
+    /**
+     * 初始化相关数据
+     */
+    public void init() {
+
+        list = new ArrayList<>();
+        page = 1;
+        getInitData(page++, new NetResult<List<HomeSubData>>() {
+            @Override
+            public void onSuccess(List<HomeSubData> result) {
+                list.addAll(0, result);
+                manager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+                fragmentHomeBinding.homeRecyclerView.setLayoutManager(manager);
+                adapter = new HomeRecyclerViewAdapter<HomeSubData>(context, list, LayoutInflater.from(context)
+                        , BR.homesubdata, R.layout.item_home_recyclerview);
+                fragmentHomeBinding.homeRecyclerView.setAdapter(adapter);
+
+                adapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                        Intent intent = new Intent(getActivity(), WebActivity.class);
+                        intent.putExtra("link", list.get(position).getLink());
+                        startActivity(intent);
+
+                    }
+                });
+            }
+
+            @Override
+            public void onFail() {
+
+            }
+        });
 
         SmartRefreshLayout smartRefreshLayout = rootView.findViewById(R.id.refreshLayout);
         smartRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -64,7 +110,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        return rootView;
+
+
     }
 
     /**
@@ -73,7 +120,7 @@ public class HomeFragment extends Fragment {
      * @param page      页码
      * @param netResult 返回请求状态接口
      */
-    private void getInitData(int page, final NetResult<List<HomeSubData>> netResult) {
+    public void getInitData(int page, final NetResult<List<HomeSubData>> netResult) {
 
 
         RetrofitClient.getInstance(context).getHomeData(new NetResult<FragmentHomeData>() {
@@ -88,34 +135,6 @@ public class HomeFragment extends Fragment {
 
             }
         }, page);
-
-
-    }
-
-    /**
-     * 初始化相关数据
-     */
-    private void init() {
-        context = getActivity().getApplicationContext();
-        list = new ArrayList<>();
-        page = 1;
-
-        // 获取首页数据
-        getInitData(page, new NetResult<List<HomeSubData>>() {
-            @Override
-            public void onSuccess(List<HomeSubData> result) {
-                list.addAll(0, result);
-                fragmentHomeBinding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(context
-                        , LinearLayoutManager.VERTICAL, false));
-                adapter = new HomeRecyclerViewAdapter<HomeSubData>(context, list, LayoutInflater.from(context)
-                        , BR.homesubdata, R.layout.item_home_recyclerview);
-                fragmentHomeBinding.homeRecyclerView.setAdapter(adapter);
-            }
-
-            @Override
-            public void onFail() {
-
-            }
-        });
     }
 }
+

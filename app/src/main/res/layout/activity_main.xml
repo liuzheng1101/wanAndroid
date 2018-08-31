@@ -9,10 +9,6 @@
             type="com.example.acer.wanandroid.Adapter.MyViewpagerAdapter" />
 
         <variable
-            name="picassoImageLoader"
-            type="com.example.acer.wanandroid.PicassoImageLoader" />
-
-        <variable
             name="bannerBean"
             type="com.example.acer.wanandroid.bean.BannerBean"/>
 

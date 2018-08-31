@@ -35,6 +35,20 @@ public class HomeRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
         this.layoutId = layoutId;
     }
 
+    /**
+     * 用于模仿listview的itemclick事件，recyclerview没有itemclick
+     */
+    private OnItemClickListener mOnItemClickListener;
+
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
     @NonNull
     @Override
     public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -46,11 +60,14 @@ public class HomeRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewHolder recyclerViewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerViewHolder recyclerViewHolder, int position) {
         ItemHomeRecyclerviewBinding itemHomeRecyclerviewBinding
                 = recyclerViewHolder.getItemHomeRecyclerviewBinding();
 
-        T homeSubData = list.get(i);
+        itemHomeRecyclerviewBinding.getRoot().setTag(position);
+        itemHomeRecyclerviewBinding.getRoot().setOnClickListener(new OnCradViewClickListener(position));
+
+        T homeSubData = list.get(position);
         itemHomeRecyclerviewBinding.setVariable(mVariableId, homeSubData);
         itemHomeRecyclerviewBinding.executePendingBindings();
     }
@@ -60,4 +77,21 @@ public class HomeRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerVie
     public int getItemCount() {
         return list.size();
     }
+
+
+    private class OnCradViewClickListener implements View.OnClickListener {
+
+        private int position;
+
+        public OnCradViewClickListener(int position) {
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View view) {
+            mOnItemClickListener.onItemClick(view, position);
+        }
+    }
+
+
 }

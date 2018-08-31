@@ -1,38 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="homesubdata"
-            type="com.example.acer.wanandroid.bean.HomeSubData"/>
+            type="com.example.acer.wanandroid.bean.HomeSubData" />
 
         <!--<variable-->
-            <!--name="homedata"-->
-            <!--type="com.example.acer.wanandroid.bean.HomeData"/>-->
+        <!--name="homedata"-->
+        <!--type="com.example.acer.wanandroid.bean.HomeData"/>-->
 
         <!--<variable-->
-            <!--name="fragmenthomedata"-->
-            <!--type="com.example.acer.wanandroid.bean.FragmentHomeData"/>-->
+        <!--name="fragmenthomedata"-->
+        <!--type="com.example.acer.wanandroid.bean.FragmentHomeData"/>-->
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
 
-        <TextView
-            android:id="@+id/tv"
-            android:text="@{homesubdata.title}"
-            android:textSize="20sp"
-            android:gravity="center"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="#FFF"
+            app:cardCornerRadius="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
 
-    </LinearLayout>
+                <ImageView
+                    android:id="@+id/androidlogo"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@mipmap/android" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_toRightOf="@+id/androidlogo"
+                    android:lines="1"
+                    android:text="@{homesubdata.superChapterName}"
+                    android:textColor="@color/textColor"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/androidlogo"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@{homesubdata.title}"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title">
+
+                    <ImageView
+                        android:id="@+id/time_logo"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="5dp"
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toEndOf="@+id/time_logo"
+                        android:lines="1"
+                        android:text="@{String.valueOf(homesubdata.publishTime)}"
+                        android:textColor="@color/textColor"
+                        android:textSize="12sp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:lines="1"
+                        android:text="@{homesubdata.author}"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
 
 </layout>

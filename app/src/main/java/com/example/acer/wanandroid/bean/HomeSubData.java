@@ -5,6 +5,10 @@ import android.databinding.Bindable;
 
 import com.example.acer.wanandroid.BR;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeSubData extends BaseObservable {
 
     private String apkLink;
@@ -127,8 +131,8 @@ public class HomeSubData extends BaseObservable {
     }
 
     @Bindable
-    public long getPublishTime() {
-        return publishTime;
+    public String getPublishTime() {
+        return timeStamp2Date(publishTime);
     }
 
     public void setPublishTime(long publishTime) {
@@ -197,5 +201,18 @@ public class HomeSubData extends BaseObservable {
 
     public void setFresh(boolean fresh) {
         this.fresh = fresh;
+    }
+
+    public static String timeStamp2Date(long time) {
+        Long timeLong = time;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date;
+        try {
+            date = sdf.parse(sdf.format(timeLong));
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
