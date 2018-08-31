@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * @author lz
  *test03
+ * test04
  */
 public class HomeRecyclerViewAdapter<T> extends RecyclerView.Adapter<RecyclerViewHolder> {
 
